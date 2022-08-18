@@ -9,23 +9,23 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t demo84/dp-alpine:latest .'
+        sh 'sudo docker build -t demo84/dp-alpine:latest .'
       }
     }
     stage('Login') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push demo84/dp-alpine:latest'
+        sh 'sudo docker push demo84/dp-alpine:latest'
       }
     }
   }
   post {
     always {
-      sh 'docker logout'
+      sh 'sudo docker logout'
     }
   }
 }
